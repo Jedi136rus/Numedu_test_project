@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+    <div class="container">
+            {% csrf_token %}
+            {{ form.as_p }}
+             <input type="submit" class="btn btn-success"  value="Добавить">
+         <span><h1><font color="red">{{ error }}</font></h1></span>
+    </div>
+</form>
+
+{% endblock %}

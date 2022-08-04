@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+    {% block content %}
+
+        <h1 align="center">{{ stor.name }}</h1>
+
+    <table class="table">
+          <thead>
+            <tr>
+                <th scope="col">Инв.ном.</th>
+                <th scope="col">Производитель</th>
+                <th scope="col">Страна производителя</th>
+                <th scope="col">Модель</th>
+                <th scope="col">Ответсвенный</th>
+                <th scope="col" align="right">Выдача</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for obj in objects %}
+            <tr>
+              <th scope="row">{{ obj.id }}</th>
+                <td>{{ obj.maker }}</td>
+                <td>{{ obj.country }}</td>
+                <td>{{ obj.type }}</td>
+                <td>{{ obj.answerable }}</td>
+                <td><div class="row">
+                        <form action="/deleteitem/{{ obj.id }}/" method = "post">{% csrf_token %}
+                            <input type="submit" value="Выдано" class="btn btn-outline-danger">
+                        </form>
+                    </div></td>
+            </tr>
+          {% endfor %}
+          </tbody>
+    </table>
+        <h3 align="center"><a href="{% url 'home' %}">На главную</a> {% if objects.count == 0 %}| <a href="{% url 'del_store' pk=stor.id %}">Удалить склад</a> {% endif %}</h3>
+    {% endblock %}
